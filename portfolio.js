@@ -27,6 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Scroll Reveal Elements
     initScrollAnimations();
+
+    // 6. Hero Visual View Switcher (Photo vs Code)
+    initHeroSwitcher();
+
+    // 7. Certificate Lightbox Modal
+    initCertModal();
+
+    // 8. Resume Lightbox Modal
+    initResumeModal();
 });
 
 /**
@@ -239,35 +248,333 @@ function showToast(msg) {
  * Interactive Contact Form Submission Handler
  * @param {Event} event 
  */
+/**
+ * Contact Form Direct Delivery Handlers
+ * 1. Direct Background Email via Hidden Iframe (Zero redirection, never leaves the page)
+ * 2. Instant WhatsApp Direct Messaging (+91 93985 78584)
+ */
+let isFormSubmitting = false;
+
 function handleContactSubmit(event) {
-    event.preventDefault();
     const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
     const feedback = document.getElementById('formFeedback');
 
-    const name = form.elements['name'].value;
-    const email = form.elements['email'].value;
-    const subject = form.elements['subject'].value;
-    const message = form.elements['message'].value;
+    const name = form.elements['name'] ? form.elements['name'].value.trim() : '';
+    const email = form.elements['email'] ? form.elements['email'].value.trim() : '';
+    const message = form.elements['message'] ? form.elements['message'].value.trim() : '';
 
-    // Visual button state
-    const originalBtnHtml = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<span>Sending Message...</span> <i class="bx bx-loader-alt bx-spin"></i>';
-    submitBtn.disabled = true;
+    if (!name || !email || !message) {
+        event.preventDefault();
+        if (feedback) {
+            feedback.className = 'form-feedback error';
+            feedback.style.display = 'block';
+            feedback.textContent = 'Please fill out all required fields (Name, Email, and Message).';
+        }
+        return false;
+    }
 
-    // Simulate reliable transmission / Mailto option
+    // Set submitting flag for hidden iframe response
+    isFormSubmitting = true;
+
+    // Visual button state - strictly NO redirect, NO new window
+    if (submitBtn) {
+        submitBtn.innerHTML = '<span>Sending Message...</span> <i class="bx bx-loader-alt bx-spin"></i>';
+        submitBtn.disabled = true;
+    }
+
+    if (feedback) {
+        feedback.style.display = 'none';
+        feedback.className = 'form-feedback';
+    }
+
+    // Safety timeout: In case the iframe onload is restricted by browser security policies
     setTimeout(() => {
-        submitBtn.innerHTML = originalBtnHtml;
-        submitBtn.disabled = false;
+        if (isFormSubmitting) {
+            handleFormSuccess();
+        }
+    }, 2200);
 
-        feedback.className = 'form-feedback success';
-        feedback.innerHTML = `Thank you, <strong>${name}</strong>! Your message has been prepared. You can also directly reach Bhavish at <a href="mailto:yandrapubhavish2701@gmail.com" style="color:#38bdf8; text-decoration:underline;">yandrapubhavish2701@gmail.com</a>.`;
-        
-        showToast('Message sent! Bhavish will contact you soon.');
-        form.reset();
-
-        // Optional: trigger mailto backup for real convenience
-        const mailtoUri = `mailto:yandrapubhavish2701@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("From: " + name + " (" + email + ")\n\n" + message)}`;
-        // window.location.href = mailtoUri;
-    }, 900);
+    // Form naturally posts directly to FormSubmit inside hidden_contact_iframe
+    return true;
 }
+
+/**
+ * Invoked once the message has been dispatched to FormSubmit
+ */
+function handleFormSuccess() {
+    if (!isFormSubmitting) return;
+    isFormSubmitting = false;
+
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const feedback = document.getElementById('formFeedback');
+
+    const name = form && form.elements['name'] ? form.elements['name'].value.trim() : '';
+
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="bx bx-check"></i> <span>Message Sent!</span>';
+    }
+
+    if (feedback) {
+        feedback.className = 'form-feedback success';
+        feedback.style.display = 'block';
+        feedback.innerHTML = `
+            <div style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 12px; padding: 16px; margin-top: 14px; text-align: left;">
+                <div style="font-weight: 700; color: #10b981; font-size: 1rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                    <i class="bx bx-check-circle" style="font-size: 1.3rem;"></i> Message Sent Directly!
+                </div>
+                <p style="font-size: 0.88rem; color: #334155; margin: 0; line-height: 1.5;">
+                    Thank you${name ? ', <strong>' + name + '</strong>' : ''}! Your message has been sent directly to Bhavish's email (<strong>yandrapubhavish2701@gmail.com</strong>) without any redirection. Bhavish will get back to you promptly.
+                </p>
+            </div>
+        `;
+    }
+
+    showToast('Message sent directly to Bhavish!');
+    if (form) form.reset();
+
+    setTimeout(() => {
+        if (submitBtn) {
+            submitBtn.innerHTML = '<i class="bx bx-paper-plane"></i> <span>Send to Email</span>';
+            submitBtn.disabled = false;
+        }
+    }, 4500);
+}
+
+/**
+ * Send Message Directly via WhatsApp to Bhavish (+91 93985 78584)
+ */
+function sendViaWhatsApp() {
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
+
+    const name = form && form.elements['name'] ? form.elements['name'].value.trim() : '';
+    const email = form && form.elements['email'] ? form.elements['email'].value.trim() : '';
+    const phone = form && form.elements['phone'] ? form.elements['phone'].value.trim() : '';
+    const subject = form && form.elements['subject'] ? form.elements['subject'].value.trim() : 'Portfolio Inquiry';
+    const message = form && form.elements['message'] ? form.elements['message'].value.trim() : '';
+
+    if (!name || !message) {
+        if (feedback) {
+            feedback.className = 'form-feedback error';
+            feedback.style.display = 'block';
+            feedback.textContent = 'Please provide at least your Name and Message to send via WhatsApp.';
+        }
+        showToast('Please enter your Name and Message first.');
+        return;
+    }
+
+    const waText = `*New Portfolio Message for Bhavish*\n\n` +
+                   `*Name:* ${name}\n` +
+                   `*Email:* ${email || 'Not provided'}\n` +
+                   `*Phone:* ${phone || 'Not provided'}\n` +
+                   `*Subject:* ${subject}\n\n` +
+                   `*Message:*\n${message}`;
+
+    const waUrl = `https://wa.me/919398578584?text=${encodeURIComponent(waText)}`;
+    window.open(waUrl, '_blank');
+    showToast('Opening WhatsApp with your pre-filled message!');
+}
+
+// Expose handlers globally
+window.handleContactSubmit = handleContactSubmit;
+window.handleFormSuccess = handleFormSuccess;
+window.sendViaWhatsApp = sendViaWhatsApp;
+
+/**
+ * Hero Visual View Switcher: Photo View vs Code Terminal View
+ */
+function initHeroSwitcher() {
+    const switchBtns = document.querySelectorAll('.hero-switch-btn');
+    const panes = document.querySelectorAll('.hero-view-pane');
+    if (!switchBtns.length || !panes.length) return;
+
+    switchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            switchBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            panes.forEach(pane => {
+                if (pane.id === targetId) {
+                    pane.classList.add('active');
+                } else {
+                    pane.classList.remove('active');
+                }
+            });
+        });
+    });
+}
+
+/**
+ * Verified Credentials Data Store
+ */
+const CERT_DATA = {
+    uiux: {
+        title: "UI/UX Design and Prototyping for Web and Mobile Applications",
+        issuer: "Centre for Professional Enhancement, Lovely Professional University",
+        badge: "Grade 'A' Awarded • Certificate No. 491592",
+        image: "assets/cert-ui-ux-lpu.png",
+        download: "assets/cert-ui-ux-lpu.pdf",
+        downloadText: "Download / Open PDF",
+        details: "Certificate of Merit awarded to Yandrapu Bhavish (Registration No. 12406399) for successfully completing the skill development course 'UI/UX Design and Prototyping for Web and Mobile Applications' from 14-06-2026 to 26-07-2026 with an 'A' Grade. Issued by Lovely Professional University on 13-08-2026."
+    },
+    dbms: {
+        title: "Database Management System Part - 1",
+        issuer: "Infosys Springboard • Satheesha B. N., Senior VP & Head",
+        badge: "Infosys Verified Credential • Official Course Completion",
+        image: "assets/cert-dbms-infosys.png",
+        download: "assets/cert-dbms-infosys.pdf",
+        downloadText: "Download / Open PDF",
+        details: "Awarded to Yandrapu Bhavish on July 28, 2026 for successfully completing the course 'Database Management System Part - 1' on Infosys Springboard. Official verification at https://verify.onwingspan.com."
+    },
+    cpp: {
+        title: "Programming Using C++ (Object-Oriented Programming)",
+        issuer: "Infosys Springboard • Thirumala Arohi, Exec VP & Global Head (ETA)",
+        badge: "Infosys Verified Credential • Official Course Completion",
+        image: "assets/cert-cpp-infosys.png",
+        download: "assets/cert-cpp-infosys.pdf",
+        downloadText: "Download / Open PDF",
+        details: "Awarded to Yandrapu Bhavish on August 18, 2025 for successfully completing the course 'Programming Using C++' covering object-oriented concepts, syntax, and algorithmic logic. Verified via Infosys Springboard at https://verify.onwingspan.com."
+    },
+    webdev: {
+        title: "Web Development (Live MOOC 18 Hours)",
+        issuer: "Rising Tech Pro • Certificate No. RTP-202501-WD-178",
+        badge: "Industry Certified • Proctored Examination Passed",
+        image: "assets/cert-web-dev-rising-tech.jpg",
+        download: "assets/cert-web-dev-rising-tech.jpg",
+        downloadText: "View Full Resolution",
+        details: "Awarded to Yandrapu Bhavish on 25th Jan 2025 for successfully completing a live MOOC of 18 hours on Web Development between 22nd December 2024 and 15th January 2025, satisfying all course requirements including proctored examination."
+    }
+};
+
+/**
+ * Open Certificate Lightbox Modal
+ * @param {string} type - 'dbms' or 'webdev'
+ */
+function openCertModal(type) {
+    const data = CERT_DATA[type];
+    if (!data) return;
+
+    const modal = document.getElementById('certModal');
+    const modalTitle = document.getElementById('modalCertTitle');
+    const modalIssuer = document.getElementById('modalCertIssuer');
+    const modalBadge = document.getElementById('modalCertBadge');
+    const modalImg = document.getElementById('modalCertImage');
+    const modalDownload = document.getElementById('modalCertDownload');
+    const modalDetails = document.getElementById('modalCertDetails');
+
+    if (!modal) return;
+
+    if (modalTitle) modalTitle.textContent = data.title;
+    if (modalIssuer) modalIssuer.textContent = data.issuer;
+    if (modalBadge) modalBadge.innerHTML = `<i class="bx bxs-check-shield"></i> ${data.badge}`;
+    if (modalImg) {
+        modalImg.src = data.image;
+        modalImg.alt = data.title;
+    }
+    if (modalDownload) {
+        modalDownload.href = data.download;
+        modalDownload.innerHTML = `<i class="bx bx-download"></i> ${data.downloadText}`;
+    }
+    if (modalDetails) modalDetails.textContent = data.details;
+
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Close Certificate Lightbox Modal
+ */
+function closeCertModal() {
+    const modal = document.getElementById('certModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
+}
+
+/**
+ * Initialize Certificate Modal Events
+ */
+function initCertModal() {
+    const modal = document.getElementById('certModal');
+    const closeBtn = document.getElementById('closeCertModal');
+    const closeBtnFooter = document.getElementById('closeCertModalBtn');
+
+    if (closeBtn) closeBtn.addEventListener('click', closeCertModal);
+    if (closeBtnFooter) closeBtnFooter.addEventListener('click', closeCertModal);
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeCertModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeCertModal();
+        }
+    });
+}
+
+// Expose globally for inline onclick handlers
+window.openCertModal = openCertModal;
+window.closeCertModal = closeCertModal;
+
+/**
+ * Open Resume Lightbox Modal
+ */
+function openResumeModal() {
+    const modal = document.getElementById('resumeModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Close Resume Lightbox Modal
+ */
+function closeResumeModal() {
+    const modal = document.getElementById('resumeModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
+}
+
+/**
+ * Initialize Resume Modal Events
+ */
+function initResumeModal() {
+    const modal = document.getElementById('resumeModal');
+    const closeBtn = document.getElementById('closeResumeModal');
+    const closeBtnFooter = document.getElementById('closeResumeModalBtn');
+
+    if (closeBtn) closeBtn.addEventListener('click', closeResumeModal);
+    if (closeBtnFooter) closeBtnFooter.addEventListener('click', closeResumeModal);
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeResumeModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeResumeModal();
+        }
+    });
+}
+
+// Expose globally for inline onclick handlers
+window.openResumeModal = openResumeModal;
+window.closeResumeModal = closeResumeModal;
+

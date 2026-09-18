@@ -42,10 +42,19 @@
             <a href="#training" class="nav-item">Training</a>
             <a href="#certifications" class="nav-item">Certificates</a>
             <a href="#education" class="nav-item">Education</a>
+            <a href="#resume" class="nav-item">Resume</a>
             <a href="#contact" class="nav-item">Contact</a>
         </nav>
 
         <div class="header-actions">
+            <button type="button" class="btn-cv-nav" onclick="openResumeModal()" title="View Yandrapu Bhavish's Resume / CV">
+                <i class="bx bx-file"></i>
+                <span>Resume</span>
+            </button>
+            <a href="assets/Yandrapu_Bhavish_Resume.pdf" download="Yandrapu_Bhavish_Resume.pdf" target="_blank" class="btn-cv-nav btn-cv-download" title="Download Official CV PDF">
+                <i class="bx bx-download"></i>
+                <span>CV PDF</span>
+            </a>
             <a href="#contact" class="btn-primary-nav">Let's Connect</a>
             <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
                 <i class="bx bx-menu" id="menuIcon"></i>
@@ -67,7 +76,14 @@
             <a href="#training" class="mobile-link">Training</a>
             <a href="#certifications" class="mobile-link">Certifications</a>
             <a href="#education" class="mobile-link">Education</a>
+            <a href="#resume" class="mobile-link">Resume & CV</a>
             <a href="#contact" class="mobile-link">Contact</a>
+            <button type="button" class="mobile-link mobile-cv-link" onclick="openResumeModal()">
+                <i class="bx bx-file"></i> View Full Resume
+            </button>
+            <a href="assets/Yandrapu_Bhavish_Resume.pdf" download="Yandrapu_Bhavish_Resume.pdf" target="_blank" class="mobile-link mobile-cv-link">
+                <i class="bx bx-download"></i> Download CV (PDF)
+            </a>
         </nav>
         <div class="mobile-drawer-footer">
             <div class="drawer-socials">
@@ -127,13 +143,17 @@
 
                     <!-- Call To Action Buttons -->
                     <div class="hero-cta-group animate-fade-in delay-5">
-                        <a href="#projects" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="openResumeModal()" title="View Yandrapu Bhavish's Official Resume">
+                            <i class="bx bx-file"></i>
+                            <span>View Resume</span>
+                        </button>
+                        <a href="assets/Yandrapu_Bhavish_Resume.pdf" download="Yandrapu_Bhavish_Resume.pdf" target="_blank" class="btn btn-secondary" title="Download Official CV">
+                            <i class="bx bx-download"></i>
+                            <span>Download CV</span>
+                        </a>
+                        <a href="#projects" class="btn btn-outline" title="Explore Featured Projects">
                             <span>Explore Projects</span>
                             <i class="bx bx-right-arrow-alt"></i>
-                        </a>
-                        <a href="#contact" class="btn btn-secondary">
-                            <span>Get In Touch</span>
-                            <i class="bx bx-message-rounded-dots"></i>
                         </a>
                     </div>
 
@@ -159,45 +179,107 @@
                 <!-- Hero Graphic Card / Visual Badge -->
                 <div class="hero-visual animate-fade-in delay-3">
                     <div class="profile-card-wrapper">
-                        <div class="profile-glass-card">
-                            <div class="card-header-bar">
-                                <div class="terminal-dots">
-                                    <span class="dot dot-red"></span>
-                                    <span class="dot dot-yellow"></span>
-                                    <span class="dot dot-green"></span>
+                        <!-- Hero View Switcher: Photo Profile vs Code Terminal -->
+                        <div class="hero-view-switch">
+                            <button type="button" class="hero-switch-btn active" data-target="heroPhotoPane">
+                                <i class="bx bx-user-circle"></i> Profile Photo
+                            </button>
+                            <button type="button" class="hero-switch-btn" data-target="heroCodePane">
+                                <i class="bx bx-code-alt"></i> Code Terminal
+                            </button>
+                        </div>
+
+                        <!-- Pane 1: Profile Photo Showcase (Default) -->
+                        <div class="hero-view-pane active" id="heroPhotoPane">
+                            <div class="profile-photo-card">
+                                <div class="profile-photo-inner">
+                                    <img src="assets/profile.jpg" alt="Yandrapu Bhavish" class="profile-main-photo" id="heroProfileImg">
+                                    <div class="profile-overlay-gradient"></div>
+                                    
+                                    <div class="photo-badge-status">
+                                        <span class="pulse-dot-green"></span>
+                                        <span>Available for Hire</span>
+                                    </div>
+                                    <div class="photo-badge-role">
+                                        <i class="bx bx-laptop"></i> Full-Stack Dev
+                                    </div>
                                 </div>
-                                <span class="terminal-title">developer_profile.js</span>
-                                <span class="live-pill"><i class="bx bx-broadcast"></i> ACTIVE</span>
-                            </div>
 
-                            <div class="code-preview">
-                                <p><span class="syntax-keyword">const</span> <span class="syntax-variable">engineer</span> = {</p>
-                                <p class="indent-1"><span class="syntax-prop">name</span>: <span class="syntax-string">'Yandrapu Bhavish'</span>,</p>
-                                <p class="indent-1"><span class="syntax-prop">role</span>: <span class="syntax-string">'Full-Stack & Frontend Developer'</span>,</p>
-                                <p class="indent-1"><span class="syntax-prop">institution</span>: <span class="syntax-string">'Lovely Professional University'</span>,</p>
-                                <p class="indent-1"><span class="syntax-prop">degree</span>: <span class="syntax-string">'B.Tech Computer Science'</span>,</p>
-                                <p class="indent-1"><span class="syntax-prop">coreStack</span>: [<span class="syntax-string">'React.js'</span>, <span class="syntax-string">'Node.js'</span>, <span class="syntax-string">'JavaScript'</span>, <span class="syntax-string">'MongoDB'</span>],</p>
-                                <p class="indent-1"><span class="syntax-prop">contact</span>: {</p>
-                                <p class="indent-2"><span class="syntax-prop">email</span>: <span class="syntax-string">'yandrapubhavish2701@gmail.com'</span>,</p>
-                                <p class="indent-2"><span class="syntax-prop">phone</span>: <span class="syntax-string">'+91 93985 78584'</span>,</p>
-                                <p class="indent-2"><span class="syntax-prop">github</span>: <span class="syntax-string">'Bhavish2701'</span></p>
-                                <p class="indent-1">},</p>
-                                <p class="indent-1"><span class="syntax-prop">availableForHire</span>: <span class="syntax-boolean">true</span></p>
-                                <p>};</p>
-                            </div>
+                                <div class="photo-card-info">
+                                    <div class="photo-card-info-header">
+                                        <h3 class="photo-card-name">Yandrapu Bhavish</h3>
+                                        <span class="photo-card-badge-inline"><i class="bx bx-check-circle"></i> Full-Stack Dev</span>
+                                    </div>
+                                    <div class="photo-card-sub">
+                                        <i class="bx bxs-graduation"></i> Computer Science @ Lovely Professional University
+                                    </div>
+                                    <div class="photo-card-tags">
+                                        <span class="photo-tag">React.js</span>
+                                        <span class="photo-tag">Node.js</span>
+                                        <span class="photo-tag">JavaScript</span>
+                                        <span class="photo-tag">MongoDB</span>
+                                        <span class="photo-tag">SyncGaze</span>
+                                    </div>
+                                </div>
 
-                            <!-- Floating badge pills -->
-                            <div class="floating-tech-badge badge-top-right">
-                                <i class="bx bxl-react"></i>
-                                <span>React.js</span>
+                                <!-- Floating tech badges around photo -->
+                                <div class="floating-tech-badge badge-top-right">
+                                    <i class="bx bxl-react"></i>
+                                    <span>React.js</span>
+                                </div>
+                                <div class="floating-tech-badge badge-bottom-left">
+                                    <i class="bx bxl-nodejs"></i>
+                                    <span>Node.js</span>
+                                </div>
+                                <div class="floating-tech-badge badge-bottom-right">
+                                    <i class="bx bx-check-shield"></i>
+                                    <span>SyncGaze</span>
+                                </div>
                             </div>
-                            <div class="floating-tech-badge badge-bottom-left">
-                                <i class="bx bxl-nodejs"></i>
-                                <span>Node.js</span>
-                            </div>
-                            <div class="floating-tech-badge badge-bottom-right">
-                                <i class="bx bxl-mongodb"></i>
-                                <span>MongoDB</span>
+                        </div>
+
+                        <!-- Pane 2: Interactive Code Terminal Showcase -->
+                        <div class="hero-view-pane" id="heroCodePane">
+                            <div class="profile-glass-card">
+                                <div class="card-header-bar">
+                                    <div class="terminal-dots">
+                                        <span class="dot dot-red"></span>
+                                        <span class="dot dot-yellow"></span>
+                                        <span class="dot dot-green"></span>
+                                    </div>
+                                    <span class="terminal-title">developer_profile.js</span>
+                                    <span class="live-pill"><i class="bx bx-broadcast"></i> ACTIVE</span>
+                                </div>
+
+                                <div class="code-preview">
+                                    <p><span class="syntax-keyword">const</span> <span class="syntax-variable">engineer</span> = {</p>
+                                    <p class="indent-1"><span class="syntax-prop">name</span>: <span class="syntax-string">'Yandrapu Bhavish'</span>,</p>
+                                    <p class="indent-1"><span class="syntax-prop">role</span>: <span class="syntax-string">'Full-Stack & Frontend Developer'</span>,</p>
+                                    <p class="indent-1"><span class="syntax-prop">institution</span>: <span class="syntax-string">'Lovely Professional University'</span>,</p>
+                                    <p class="indent-1"><span class="syntax-prop">degree</span>: <span class="syntax-string">'B.Tech Computer Science'</span>,</p>
+                                    <p class="indent-1"><span class="syntax-prop">coreStack</span>: [<span class="syntax-string">'React.js'</span>, <span class="syntax-string">'Node.js'</span>, <span class="syntax-string">'JavaScript'</span>, <span class="syntax-string">'MongoDB'</span>],</p>
+                                    <p class="indent-1"><span class="syntax-prop">contact</span>: {</p>
+                                    <p class="indent-2"><span class="syntax-prop">email</span>: <span class="syntax-string">'yandrapubhavish2701@gmail.com'</span>,</p>
+                                    <p class="indent-2"><span class="syntax-prop">phone</span>: <span class="syntax-string">'+91 93985 78584'</span>,</p>
+                                    <p class="indent-2"><span class="syntax-prop">github</span>: <span class="syntax-string">'Bhavish2701'</span></p>
+                                    <p class="indent-1">},</p>
+                                    <p class="indent-1"><span class="syntax-prop">availableForHire</span>: <span class="syntax-boolean">true</span></p>
+                                    <p>};</p>
+                                </div>
+
+                                <!-- Floating badge pills -->
+                                <div class="floating-tech-badge badge-top-right">
+                                    <i class="bx bxl-react"></i>
+                                    <span>React.js</span>
+                                </div>
+                                <div class="floating-tech-badge badge-bottom-left">
+                                    <i class="bx bxl-nodejs"></i>
+                                    <span>Node.js</span>
+                                </div>
+                                <div class="floating-tech-badge badge-bottom-right">
+                                    <i class="bx bxl-mongodb"></i>
+                                    <span>MongoDB</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -216,9 +298,19 @@
 
                 <div class="about-grid">
                     <div class="about-bio-card glass-panel">
-                        <div class="bio-badge">
-                            <i class="bx bx-user-pin"></i>
-                            <span>Developer Story</span>
+                        <div class="bio-profile-header">
+                            <div class="bio-avatar-frame">
+                                <img src="assets/profile.jpg" alt="Yandrapu Bhavish" class="bio-avatar-img">
+                                <span class="bio-avatar-status" title="Active & Open to Work"></span>
+                            </div>
+                            <div class="bio-profile-details">
+                                <div class="bio-badge">
+                                    <i class="bx bx-user-pin"></i>
+                                    <span>Developer Story</span>
+                                </div>
+                                <h3 class="bio-profile-name">Yandrapu Bhavish</h3>
+                                <span class="bio-profile-role">Full-Stack & Frontend Developer • LPU</span>
+                            </div>
                         </div>
                         <h3>Passionate about crafting scalable, accessible, and intuitive software solutions.</h3>
                         <p>
@@ -232,11 +324,14 @@
                         </p>
 
                         <div class="bio-actions">
-                            <a href="#contact" class="btn btn-primary btn-sm">
-                                <i class="bx bx-send"></i> Start a Conversation
+                            <button type="button" onclick="openResumeModal()" class="btn btn-primary btn-sm">
+                                <i class="bx bx-file"></i> View Full Resume
+                            </button>
+                            <a href="assets/Yandrapu_Bhavish_Resume.pdf" download="Yandrapu_Bhavish_Resume.pdf" class="btn btn-outline btn-sm">
+                                <i class="bx bx-download"></i> Download CV (PDF)
                             </a>
-                            <a href="https://github.com/Bhavish2701" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                                <i class="bx bxl-github"></i> View GitHub Profile
+                            <a href="#contact" class="btn btn-secondary btn-sm">
+                                <i class="bx bx-send"></i> Start a Conversation
                             </a>
                         </div>
                     </div>
@@ -513,7 +608,7 @@
                             </div>
 
                             <div class="project-links">
-                                <a href="https://github.com/Bhavish2701" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                                <a href="https://github.com/SyncGaze/syncgaze-workspace" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" title="View SyncGaze Workspace Repository">
                                     <i class="bx bxl-github"></i> Repository
                                 </a>
                                 <a href="#contact" class="btn btn-sm btn-outline">
@@ -585,7 +680,7 @@
                             </div>
 
                             <div class="project-links">
-                                <a href="https://github.com/Bhavish2701" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                                <a href="https://github.com/SyncGaze/syncgaze_mail" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" title="View SyncGaze Mail Repository">
                                     <i class="bx bxl-github"></i> Repository
                                 </a>
                                 <a href="#contact" class="btn btn-sm btn-outline">
@@ -750,67 +845,110 @@
                 </div>
 
                 <div class="certs-grid">
-                    <!-- Cert 1: UI / UX -->
-                    <div class="cert-card glass-panel">
-                        <div class="cert-icon icon-cyan">
-                            <i class="bx bx-palette"></i>
+                    <!-- Cert 1: UI / UX Design & Prototyping (LPU) -->
+                    <div class="cert-card glass-panel cert-card-featured">
+                        <div class="cert-thumbnail-wrapper" onclick="openCertModal('uiux')" title="Click to enlarge certificate">
+                            <img src="assets/cert-ui-ux-lpu.png" alt="LPU UI/UX Design and Prototyping Certificate" class="cert-thumbnail">
+                            <div class="cert-thumbnail-overlay">
+                                <i class="bx bx-zoom-in"></i>
+                                <span>Inspect Certificate</span>
+                            </div>
+                            <span class="cert-verified-pill"><i class="bx bxs-check-shield"></i> Verified</span>
                         </div>
                         <div class="cert-info">
-                            <span class="cert-date">Aug '26</span>
-                            <h4 class="cert-title">UI / UX Design</h4>
-                            <p class="cert-issuer">Lovely Professional University</p>
-                            <span class="cert-desc">Design systems, user-centric flows, responsive prototyping, and interface usability heuristics.</span>
+                            <div class="cert-meta-row">
+                                <span class="cert-date">Aug 13, 2026</span>
+                                <span class="cert-id-tag">Grade A • No. 491592</span>
+                            </div>
+                            <h4 class="cert-title">UI/UX Design & Prototyping for Web & Mobile</h4>
+                            <p class="cert-issuer">Lovely Professional University (CPE)</p>
+                            <span class="cert-desc">Design systems, wireframing, interactive prototyping, user research, and mobile/web UX heuristics.</span>
                         </div>
-                        <div class="cert-badge-status">
-                            <i class="bx bx-check-shield"></i> LPU Certified
+                        <div class="cert-card-actions">
+                            <button type="button" class="btn-cert-view" onclick="openCertModal('uiux')">
+                                <i class="bx bx-show"></i> View Certificate
+                            </button>
+                            <a href="assets/cert-ui-ux-lpu.pdf" download="LPU_UI_UX_Certificate.pdf" target="_blank" rel="noopener noreferrer" class="btn-cert-verify" title="Download official PDF">
+                                <i class="bx bx-download"></i> PDF
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Cert 2: DBMS -->
-                    <div class="cert-card glass-panel">
-                        <div class="cert-icon icon-indigo">
-                            <i class="bx bx-cylinder"></i>
+                    <!-- Cert 2: DBMS (Infosys Springboard) -->
+                    <div class="cert-card glass-panel cert-card-featured">
+                        <div class="cert-thumbnail-wrapper" onclick="openCertModal('dbms')" title="Click to enlarge certificate">
+                            <img src="assets/cert-dbms-infosys.png" alt="Infosys Springboard Database Management System Part 1 Certificate" class="cert-thumbnail">
+                            <div class="cert-thumbnail-overlay">
+                                <i class="bx bx-zoom-in"></i>
+                                <span>Inspect Certificate</span>
+                            </div>
+                            <span class="cert-verified-pill"><i class="bx bxs-check-shield"></i> Verified</span>
                         </div>
                         <div class="cert-info">
-                            <span class="cert-date">July '26</span>
-                            <h4 class="cert-title">Database Management System (DBMS)</h4>
-                            <p class="cert-issuer">Infosys SpringBoard</p>
-                            <span class="cert-desc">Relational database design, normalization, ACID properties, indexing, and SQL queries.</span>
+                            <span class="cert-date">July 28, 2026</span>
+                            <h4 class="cert-title">Database Management System Part - 1</h4>
+                            <p class="cert-issuer">Infosys Springboard</p>
+                            <span class="cert-desc">Relational database design, normalization, ACID transactions, indexing, and SQL queries.</span>
                         </div>
-                        <div class="cert-badge-status">
-                            <i class="bx bx-check-shield"></i> Infosys Verified
+                        <div class="cert-card-actions">
+                            <button type="button" class="btn-cert-view" onclick="openCertModal('dbms')">
+                                <i class="bx bx-show"></i> View Certificate
+                            </button>
+                            <a href="https://verify.onwingspan.com" target="_blank" rel="noopener noreferrer" class="btn-cert-verify" title="Verify at verify.onwingspan.com">
+                                <i class="bx bx-check-circle"></i> Verify Link <i class="bx bx-link-external"></i>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Cert 3: OOPS -->
-                    <div class="cert-card glass-panel">
-                        <div class="cert-icon icon-violet">
-                            <i class="bx bx-cube-alt"></i>
+                    <!-- Cert 3: Programming Using C++ / OOP (Infosys Springboard) -->
+                    <div class="cert-card glass-panel cert-card-featured">
+                        <div class="cert-thumbnail-wrapper" onclick="openCertModal('cpp')" title="Click to enlarge certificate">
+                            <img src="assets/cert-cpp-infosys.png" alt="Infosys Springboard Programming Using C++ Certificate" class="cert-thumbnail">
+                            <div class="cert-thumbnail-overlay">
+                                <i class="bx bx-zoom-in"></i>
+                                <span>Inspect Certificate</span>
+                            </div>
+                            <span class="cert-verified-pill"><i class="bx bxs-check-shield"></i> Verified</span>
                         </div>
                         <div class="cert-info">
-                            <span class="cert-date">Sept '25</span>
-                            <h4 class="cert-title">Object Oriented Programming (OOPS)</h4>
-                            <p class="cert-issuer">Infosys SpringBoard</p>
-                            <span class="cert-desc">Class hierarchies, polymorphism, encapsulation, abstraction, and software design patterns.</span>
+                            <span class="cert-date">August 18, 2025</span>
+                            <h4 class="cert-title">Programming Using C++ (Object-Oriented)</h4>
+                            <p class="cert-issuer">Infosys Springboard</p>
+                            <span class="cert-desc">Object-oriented concepts, classes & objects, inheritance, polymorphism, abstraction, and memory control.</span>
                         </div>
-                        <div class="cert-badge-status">
-                            <i class="bx bx-check-shield"></i> Infosys Verified
+                        <div class="cert-card-actions">
+                            <button type="button" class="btn-cert-view" onclick="openCertModal('cpp')">
+                                <i class="bx bx-show"></i> View Certificate
+                            </button>
+                            <a href="https://verify.onwingspan.com" target="_blank" rel="noopener noreferrer" class="btn-cert-verify" title="Verify at verify.onwingspan.com">
+                                <i class="bx bx-check-circle"></i> Verify Link <i class="bx bx-link-external"></i>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Cert 4: Web Development -->
-                    <div class="cert-card glass-panel">
-                        <div class="cert-icon icon-emerald">
-                            <i class="bx bx-code-curly"></i>
+                    <!-- Cert 4: Web Development (Rising Tech Pro) -->
+                    <div class="cert-card glass-panel cert-card-featured">
+                        <div class="cert-thumbnail-wrapper" onclick="openCertModal('webdev')" title="Click to enlarge certificate">
+                            <img src="assets/cert-web-dev-rising-tech.jpg" alt="Rising Tech Pro Web Development Certificate" class="cert-thumbnail">
+                            <div class="cert-thumbnail-overlay">
+                                <i class="bx bx-zoom-in"></i>
+                                <span>Inspect Certificate</span>
+                            </div>
+                            <span class="cert-verified-pill"><i class="bx bxs-check-shield"></i> Verified</span>
                         </div>
                         <div class="cert-info">
-                            <span class="cert-date">Jan '25</span>
-                            <h4 class="cert-title">Web Development</h4>
+                            <div class="cert-meta-row">
+                                <span class="cert-date">Jan 25, 2025</span>
+                                <span class="cert-id-tag">RTP-202501-WD-178</span>
+                            </div>
+                            <h4 class="cert-title">Web Development (18-Hr Live MOOC)</h4>
                             <p class="cert-issuer">Rising Tech Pro</p>
-                            <span class="cert-desc">Full web lifecycle, responsive layouts, DOM manipulation, APIs, and production deployment.</span>
+                            <span class="cert-desc">18-hour live MOOC on modern web development with proctored examination completion.</span>
                         </div>
-                        <div class="cert-badge-status">
-                            <i class="bx bx-check-shield"></i> Industry Certified
+                        <div class="cert-card-actions">
+                            <button type="button" class="btn-cert-view" onclick="openCertModal('webdev')">
+                                <i class="bx bx-show"></i> View Certificate
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -893,6 +1031,80 @@
                             <p class="timeline-desc">
                                 Completed comprehensive foundational secondary curriculum with high academic distinction in mathematics and science.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dedicated Resume / CV Showcase Section -->
+        <section class="section resume-section" id="resume">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">CURRICULUM VITAE</span>
+                    <h2 class="section-title">Resume & Professional Summary</h2>
+                    <div class="section-line"></div>
+                    <p class="section-subtitle">
+                        Comprehensive overview of academics, full-stack proficiencies, production engineering at SyncGaze, and verified credentials.
+                    </p>
+                </div>
+
+                <div class="resume-showcase-card glass-panel">
+                    <div class="resume-preview-col">
+                        <div class="resume-sheet-preview" onclick="openResumeModal()" title="Click to inspect full resume document">
+                            <img src="assets/resume-preview.png" alt="Yandrapu Bhavish Resume Document Preview" class="resume-thumbnail-img">
+                            <div class="resume-sheet-overlay">
+                                <i class="bx bx-zoom-in"></i>
+                                <span>Inspect Full Resume</span>
+                            </div>
+                            <span class="resume-status-chip"><i class="bx bx-check-circle"></i> Official CV (Updated)</span>
+                        </div>
+                    </div>
+                    <div class="resume-details-col">
+                        <div class="resume-badge-group">
+                            <span class="cert-verified-pill"><i class="bx bxs-graduation"></i> B.Tech CSE • LPU</span>
+                            <span class="cert-verified-pill"><i class="bx bx-code-alt"></i> Full-Stack & Frontend Dev</span>
+                            <span class="cert-verified-pill"><i class="bx bx-check-shield"></i> CGPA: 7.29</span>
+                        </div>
+                        <h3 class="resume-heading">Yandrapu Bhavish</h3>
+                        <p class="resume-summary-text">
+                            Computer Science undergraduate at Lovely Professional University with proven experience engineering responsive web applications, modular React.js platforms, authentication state management, and backend database connectivity.
+                        </p>
+
+                        <div class="resume-highlights-list">
+                            <div class="resume-highlight-item">
+                                <i class="bx bx-check-circle"></i>
+                                <div>
+                                    <strong>Core Languages & Stack:</strong>
+                                    <span>HTML5, CSS3, JavaScript (ES6+), Node.js, Python, React.js, MongoDB, REST APIs</span>
+                                </div>
+                            </div>
+                            <div class="resume-highlight-item">
+                                <i class="bx bx-check-circle"></i>
+                                <div>
+                                    <strong>Featured Projects:</strong>
+                                    <span>SyncGaze Employee Login Dashboard (May '25), SyncGaze Mail Platform (Apr '25), Gym Management Website (Dec '24)</span>
+                                </div>
+                            </div>
+                            <div class="resume-highlight-item">
+                                <i class="bx bx-check-circle"></i>
+                                <div>
+                                    <strong>Industry Training & Credentials:</strong>
+                                    <span>Cipher Schools Java OOP Training (Jan–Apr '26), Infosys Springboard DBMS & C++, LPU UI/UX (Grade A)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-cta-buttons">
+                            <button type="button" class="btn btn-primary" onclick="openResumeModal()">
+                                <i class="bx bx-show"></i> View Full Resume
+                            </button>
+                            <a href="assets/Yandrapu_Bhavish_Resume.pdf" download="Yandrapu_Bhavish_Resume.pdf" class="btn btn-secondary">
+                                <i class="bx bx-download"></i> Download PDF
+                            </a>
+                            <a href="assets/Yandrapu_Bhavish_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                                <i class="bx bx-link-external"></i> Open in New Tab
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -989,7 +1201,13 @@
                             <p>Fill out the details below and I'll get back to you promptly.</p>
                         </div>
 
-                        <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <!-- Hidden target iframe for zero-redirect background submission -->
+                        <iframe name="hidden_contact_iframe" id="hidden_contact_iframe" style="display:none;" onload="if(typeof handleFormSuccess === 'function') { handleFormSuccess(); }"></iframe>
+
+                        <form id="contactForm" action="https://formsubmit.co/yandrapubhavish2701@gmail.com" method="POST" target="hidden_contact_iframe" onsubmit="return handleContactSubmit(event)">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_subject" value="New Portfolio Message from Bhavish.dev">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="fullName">Your Full Name</label>
@@ -1032,10 +1250,16 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
-                                <span>Send Message</span>
-                                <i class="bx bx-paper-plane"></i>
-                            </button>
+                            <div class="form-actions-row">
+                                <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+                                    <i class="bx bx-paper-plane"></i>
+                                    <span>Send to Email</span>
+                                </button>
+                                <button type="button" class="btn btn-whatsapp" id="whatsappBtn" onclick="sendViaWhatsApp()">
+                                    <i class="bx bxl-whatsapp"></i>
+                                    <span>Send via WhatsApp</span>
+                                </button>
+                            </div>
 
                             <div class="form-feedback" id="formFeedback"></div>
                         </form>
@@ -1068,6 +1292,7 @@
                         <li><a href="#training">Training</a></li>
                         <li><a href="#certifications">Certificates</a></li>
                         <li><a href="#education">Education</a></li>
+                        <li><a href="#resume">Resume & CV</a></li>
                     </ul>
                 </div>
 
@@ -1094,6 +1319,74 @@
             </div>
         </div>
     </footer>
+
+    <!-- Resume Preview Lightbox Modal -->
+    <div class="cert-modal-backdrop" id="resumeModal" aria-hidden="true" role="dialog" aria-labelledby="modalResumeTitle">
+        <div class="cert-modal-container resume-modal-container">
+            <div class="cert-modal-header">
+                <div>
+                    <span class="cert-modal-badge"><i class="bx bxs-check-shield"></i> Official Resume / Curriculum Vitae</span>
+                    <h3 class="cert-modal-title" id="modalResumeTitle">Yandrapu Bhavish — Official Resume</h3>
+                    <p class="cert-modal-issuer">Computer Science & Engineering • Lovely Professional University • Full-Stack Developer</p>
+                </div>
+                <div class="cert-modal-controls">
+                    <a href="assets/Yandrapu_Bhavish_Resume.pdf" class="btn-modal-action" download="Yandrapu_Bhavish_Resume.pdf" title="Download Official Resume PDF">
+                        <i class="bx bx-download"></i> Download PDF
+                    </a>
+                    <a href="assets/Yandrapu_Bhavish_Resume.pdf" class="btn-modal-action btn-modal-outline" target="_blank" rel="noopener noreferrer" title="Open PDF in new tab">
+                        <i class="bx bx-link-external"></i> Open in Tab
+                    </a>
+                    <button type="button" class="cert-modal-close" id="closeResumeModal" aria-label="Close modal">
+                        <i class="bx bx-x"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="cert-modal-body resume-modal-body">
+                <div class="cert-modal-image-wrapper resume-image-wrapper">
+                    <img src="assets/resume-preview.png" alt="Yandrapu Bhavish Resume Document" id="modalResumeImage" class="cert-modal-img resume-modal-img">
+                </div>
+            </div>
+            <div class="cert-modal-footer">
+                <p class="cert-modal-info">Updated Resume • B.Tech CSE (Lovely Professional University) • SyncGaze Projects</p>
+                <div class="modal-footer-actions">
+                    <a href="assets/Yandrapu_Bhavish_Resume.pdf" download="Yandrapu_Bhavish_Resume.pdf" class="btn btn-primary btn-sm">
+                        <i class="bx bx-download"></i> Download PDF
+                    </a>
+                    <button type="button" class="btn btn-secondary btn-sm" id="closeResumeModalBtn">Close Preview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Lightbox Modal -->
+    <div class="cert-modal-backdrop" id="certModal" aria-hidden="true" role="dialog" aria-labelledby="modalCertTitle">
+        <div class="cert-modal-container">
+            <div class="cert-modal-header">
+                <div>
+                    <span class="cert-modal-badge" id="modalCertBadge"><i class="bx bxs-check-shield"></i> Verified Credential</span>
+                    <h3 class="cert-modal-title" id="modalCertTitle">Certificate Title</h3>
+                    <p class="cert-modal-issuer" id="modalCertIssuer">Issuer</p>
+                </div>
+                <div class="cert-modal-controls">
+                    <a href="#" id="modalCertDownload" class="btn-modal-action" download target="_blank" rel="noopener noreferrer">
+                        <i class="bx bx-download"></i> Download / Open
+                    </a>
+                    <button type="button" class="cert-modal-close" id="closeCertModal" aria-label="Close modal">
+                        <i class="bx bx-x"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="cert-modal-body">
+                <div class="cert-modal-image-wrapper">
+                    <img src="" alt="Certificate Preview" id="modalCertImage" class="cert-modal-img">
+                </div>
+            </div>
+            <div class="cert-modal-footer">
+                <p class="cert-modal-info" id="modalCertDetails"></p>
+                <button type="button" class="btn btn-secondary btn-sm" id="closeCertModalBtn">Close Preview</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Toast Notification Container -->
     <div id="toastNotification" class="toast-notification">
