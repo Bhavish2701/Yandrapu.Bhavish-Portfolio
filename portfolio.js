@@ -169,7 +169,7 @@ function initMobileDrawer() {
  */
 function initScrollAnimations() {
     const targets = document.querySelectorAll(
-        '.about-bio-card, .pillar-card, .skill-category-card, .project-card, .training-card, .cert-card, .timeline-item, .contact-card, .contact-form-column'
+        '.about-bio-card, .pillar-card, .skill-category-card, .project-card, .achievement-card, .training-card, .cert-card, .timeline-item, .contact-card, .contact-form-column'
     );
 
     targets.forEach(el => {
@@ -446,6 +446,15 @@ const CERT_DATA = {
         download: "assets/cert-web-dev-rising-tech.jpg",
         downloadText: "View Full Resolution",
         details: "Awarded to Yandrapu Bhavish on 25th Jan 2025 for successfully completing a live MOOC of 18 hours on Web Development between 22nd December 2024 and 15th January 2025, satisfying all course requirements including proctored examination."
+    },
+    devstorm: {
+        title: "DevStorm 2026 — A 36-Hour Hackathon at Lovely Professional University",
+        issuer: "Organized by Student Organization SPIRIT (Division of Youth Affairs, LPU) & SyncGaze Private Limited",
+        badge: "Event Host & Lead Organizer • 1,000+ Participants",
+        image: "assets/devstorm-hackathon.jpg",
+        download: "assets/devstorm-hackathon.jpg",
+        downloadText: "View / Download Official Poster",
+        details: "Hosted DevStorm 2026, an intensive 36-hour non-stop university/national hackathon held at Block-34, Lovely Professional University (LPU) from 28–30 August 2026 with over 1,000 participants. The event featured a ₹30,000 prize pool, 2-month internships for top 10 finalists, official DevStorm merchandise, and institutional collaboration with SyncGaze Pvt Ltd and DSO under the aegis of Division of Youth Affairs, Student Welfare Wing, LPU."
     }
 };
 
